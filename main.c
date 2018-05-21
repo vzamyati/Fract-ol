@@ -12,24 +12,13 @@
 
 #include "fractol.h"
 
-void	put_image(t_win *window, int x, int y, int color)
-{
-	int a;
-
-	if (!(x > 0 && y > 0 && x < W_WIDTH &&  y < W_HEIGHT))
-		return ;
-	(void)a;
-	*(int *)(window->data +
-			(x + y * W_WIDTH) * window->bpp / 8) = color;
-}
-
 void	fractals(void)
 {
 	ft_putstr("Fractals that are available: \n");
 	ft_putstr(" - mandelbrot \n");
 }
 
-void		next_step(char *fractal)
+void	next_step(char *fractal)
 {
 	if (!ft_strcmp(fractal, "mandelbrot"))
 		mandelbrot();

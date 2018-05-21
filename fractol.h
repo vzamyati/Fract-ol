@@ -20,11 +20,18 @@
 # include <stdlib.h>
 # include <pthread.h>
 
-# define MAX_ITER		50
+# define MAX_ITER		150
 
 # define PI 			3.14159265359
 # define W_HEIGHT		1200
 # define W_WIDTH 		1200
+
+// typedef struct 			s_color
+// {
+// 	int 				r;
+// 	int 				g;
+// 	int 				b;
+// }						t_color;
 
 typedef struct 			s_win
 {
@@ -36,35 +43,12 @@ typedef struct 			s_win
 	int 				bpp;
 	int 				size_line;
 	int 				endian;
-	// double				zoom;
-	// double				moveX;
-	// double				moveY;
-	// int 				iter;
-	// double				re_tmp;
-	// double				im_tmp;
-	// int 				palette;
+	int 				flower_m;
+	int 				palette;
+	// t_color				*color;
 }						t_win;
 
-// typedef struct 			s_f
-// {
-// 	double				z;
-// 	double				x;
-// 	double				y_end;
-// 	double				y_start;
-// 	double				zoom;
-// 	double				moveX;
-// 	double				moveY;
-// 	int 				iter;
-// 	double				oldRe;
-// 	double				oldIm;
-// 	double				newRe;
-// 	double				newIm;
-// 	double				tmpRe;;
-// 	double				tmpIm;;
-// 	int 				loopgo;
-// 	int 				palette;
-// 	t_win				*window;
-// }						t_f;
+
 
 void		mandelbrot(void);
 void		ft_error(int error_code);
@@ -72,7 +56,7 @@ void		fractals(void);
 void		next_step(char *fractal);
 int			validation(char *fractal);
 void		init_fract(t_win *window);
-void	put_image(t_win *window, int x, int y, int color);
+//void		put_image(t_win *window, int x, int y, int color);
 
 t_win		*init_win(char *fractal);
 

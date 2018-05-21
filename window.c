@@ -13,19 +13,16 @@
 
 #include "fractol.h"
 
-// void	data_init(t_win *window, char *fract)
+// t_color 	*init_color_palette(void)
 // {
-// 	window->fractal = fract;
-// 	window->zoom = 1;
-// 	window->moveX = 0;
-// 	window->moveY = 0;
-// 	window->iter = MAX_ITER;
-// 	window->re_tmp = 0;
-// 	window->im_tmp = 0;
-// 	window->palette = 1;
+// 	t_color *palette;
+
+// 	if(!(palette = (t_color *)ft_memalloc(sizeof(t_color) * 15)))
+// 		ft_error(4);
+// 	return (palette);
 // }
 
-t_win	*init_win(char *fractal)
+t_win		*init_win(char *fractal)
 {
 	t_win	*window;
 
@@ -36,12 +33,9 @@ t_win	*init_win(char *fractal)
 		return (NULL);
 	}
 	window->mlx = mlx_init();
+	// window->color = init_color_palette();
 	window->win = mlx_new_window(window->mlx, W_WIDTH, W_HEIGHT, fractal);
-	// data_init(window, fractal);
 	window->img = mlx_new_image(window->mlx, W_WIDTH, W_HEIGHT);
 	window->data = mlx_get_data_addr(window->img, &(window->bpp), &(window->size_line), &(window->endian));
-	// if (!(ft_strcmp(window->fractal, "mandelbrot")))
-	// 	pthread_for_mand(window);
-	// mlx_put_image_to_window(window->mlx, window->win, window->img, 0, 0);
 	return (window);
 }

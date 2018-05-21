@@ -16,17 +16,17 @@ void	ft_error(int error_code)
 {
 	if (error_code == 1)
 	{
-		ft_putstr("Usage:\n./fractol mandelbrot\n");
+		ft_putstr_fd("Usage:\n./fractol mandelbrot\n", 2);
 		fractals();
 	}
 	if (error_code == 2)
 	{
-		ft_putstr("Sorry, but you're doing smthing that is not available :(\n");
+		ft_putstr_fd("Sorry, but you're doing smthing that is not available :(\n", 2);
 		fractals();
 	}
 	if (error_code == 3)
-		ft_putstr("Unable to allocate memory for window.\n");
+		ft_putstr_fd("Unable to allocate memory for window.\n", 2);
 	if (error_code == 4)
-		ft_putstr("Unable to allocate memory for palette.\n");
+		ft_putstr_fd("Unable to allocate memory for palette.\n", 2);
 	exit(1);
 }
