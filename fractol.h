@@ -45,6 +45,20 @@ typedef struct 			s_win
 	int 				endian;
 	int 				flower_m;
 	int 				palette;
+	double				maxRe;
+	double				maxIm;
+	double				minRe;
+	double				minIm;
+	double 				zRe;
+	double 				zIm;
+	double 				Re;
+	double 				Im;
+	double 				factor_Re;
+	double 				factor_Im;
+	double				oldRe;
+	double				tempzRe;
+	int 				loopgo;
+
 	// t_color				*color;
 }						t_win;
 
@@ -56,6 +70,7 @@ void		fractals(void);
 void		next_step(char *fractal);
 int			validation(char *fractal);
 void		init_fract(t_win *window);
+t_win 		*init_mandel(t_win *mandel);
 //void		put_image(t_win *window, int x, int y, int color);
 
 t_win		*init_win(char *fractal);

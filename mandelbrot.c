@@ -23,50 +23,56 @@ void	put_image(t_win *window, int x, int y, int color)
 void		mandelbrot(void)
 {
 	t_win	*mandel;
+	int x;
+	int y;
 
 	mandel = init_win("Mandelbrot by vz");
-
-	mandel->maxRe = 1;
-	mandel->minRe = -2;
-	mandel->minIm = -1.2;
-	mandel->maxIm = mandel->minIm + (mandel->maxRe - mandel->minRe) * W_HEIGHT/W_WIDTH;
-	double zx = 0;
-	double zy = 0;
-	double cx = 0; //complex real
-	double cy = 0; // complex im
-	double factor_re = ((mandel->maxRe - mandel->minRe) / (double)(W_WIDTH - 1));
-	double factor_im = ((maxim - minim) / (double)(W_HEIGHT - 1));
-	double tempzx = 0;
-	int loopgo = 0;
-	int x = -1;
+	mandel = init_mandel(mandel);
+	x = -1;
 	while (++x < W_WIDTH)
 	{
-		cx = (factor_re * x) - fabs(minre);
-		int y = -1;
+		mandel->Re = (mandel->factor_Re * x) - fabs(mandel->minRe);
+		y = -1;
 		while (++y < W_HEIGHT)
 		{
-			zx = 0;
-			zy = 0;
-			cy = (factor_im * y) - fabs(minim);
-			loopgo = 0;
-			while (zx * zx + zy * zy <= 4 && loopgo < MAX_ITER)
+			mandel->zRe = 0;
+			mandel->zIm = 0;
+			mandel->Im = (mandel->factor_Im * y) - fabs(mandel->minIm);
+			mandel->loopgo = 0;
+			while (mandel->zRe * mandel->zRe + mandel->zIm * mandel->zIm <= 4
+				&& mandel->loopgo < MAX_ITER)
 			{
-				loopgo++;
-				tempzx = zx;
-				zx = (zx * zx) - (zy * zy) + cx;
-				zy = (2 * tempzx * zy) + cy;
+				mandel->loopgo++;
+				mandel->tempzRe = mandel->zRe;
+				mandel->zRe = (mandel->zRe * mandel->zRe) - (mandel->zIm * mandel->zIm) + mandel->Re;
+				mandel->zIm = (2 * mandel->tempzRe * mandel->zIm) + mandel->Im;
 			}
-			if (loopgo == MAX_ITER)
+			if (mandel->loopgo == MAX_ITER)
 				put_image(mandel, x, y, 0x000000);
 			else
-				put_image(mandel, x, y, (loopgo % 15) * 0xE70E0E);
+				put_image(mandel, x, y, (mandel->loopgo % 15) * 0xE70E0E);
 		}
 	}
 	mlx_put_image_to_window(mandel->mlx, mandel->win, mandel->img, 0, 0);
 	mlx_loop(mandel->mlx);
 }
 
-
+t_win 		*init_mandel(t_win *mandel)
+{
+	mandel->maxRe = 1;
+	mandel->minRe = -2;
+	mandel->minIm = -1.2;
+	mandel->maxIm = mandel->minIm + (mandel->maxRe - mandel->minRe) * W_HEIGHT/W_WIDTH;
+	mandel->zRe = 0;
+	mandel->zIm = 0;
+	mandel->Re = 0;
+	mandel->Im = 0;
+	mandel->factor_Re = ((mandel->maxRe - mandel->minRe) / (double)(W_WIDTH - 1));
+	mandel->factor_Im = ((mandel->maxIm - mandel->minIm) / (double)(W_HEIGHT - 1));
+	mandel->tempzRe = 0;
+	mandel->loopgo = 0;
+	return (mandel);
+}
 //(zx * (zy + zy) * (zy * zy) * zx < 4 && loopgo < MAX_ITER) - FLOWER MODE 1
 //(zx * zx * zy * zy <= 4 && loopgo < MAX_ITER) - FLOWER 
 //(zx * zx + zy * zy <= 4 && loopgo < MAX_ITER) - NORMAL MODE
