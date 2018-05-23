@@ -58,7 +58,8 @@ typedef struct 			s_win
 	double				oldRe;
 	double				tempzRe;
 	int 				loopgo;
-
+	int 				x_ptr;
+	int 				y_ptr;
 	// t_color				*color;
 }						t_win;
 
