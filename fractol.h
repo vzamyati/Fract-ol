@@ -60,20 +60,31 @@ typedef struct 			s_win
 	int 				loopgo;
 	int 				x_ptr;
 	int 				y_ptr;
+	int 				f_mode;
+	double				minX;
+	double				minY;
+	double				maxX;
+	double				maxY;
 	// t_color				*color;
 }						t_win;
 
 
-
-void		mandelbrot(void);
+int			key_events(int key, t_win *window);
+int			validation(char *fractal);
+int			f_exit(t_win *window);
+void		f_move(t_win *window, int key);
+void		redraw_image(t_win *window, char *fractal);
 void		ft_error(int error_code);
 void		fractals(void);
 void		next_step(char *fractal);
-int			validation(char *fractal);
 void		init_fract(t_win *window);
-t_win 		*init_mandel(t_win *mandel);
-//void		put_image(t_win *window, int x, int y, int color);
+void		mandelbrot(void);
+void		iterating_drawing(t_win *mandel);
+void		put_image(t_win *window, int x, int y, int color);
+void		var_back(t_win *window);
+void		redraw_image(t_win *window, char *fractal);
 
+t_win 		*init_mandel(t_win *mandel);
 t_win		*init_win(char *fractal);
 
 #endif

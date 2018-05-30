@@ -12,7 +12,7 @@
 
 #include "fractol.h"
 
-void	put_image(t_win *window, int x, int y, int color)
+void		put_image(t_win *window, int x, int y, int color)
 {
 	if (!(x > 0 && y > 0 && x < W_WIDTH &&  y < W_HEIGHT))
 		return ;
@@ -24,7 +24,12 @@ void		iterating_drawing(t_win *mandel)
 {
 	mandel->tempzRe= mandel->zRe;
 	while (mandel->loopgo < MAX_ITER && ((double)
-		(mandel->zRe * mandel->zRe + mandel->zIm * mandel->zIm <= 4)))
+		(mandel->zRe * mandel->zRe + mandel->zIm * mandel->zIm < 4 
+			&& mandel->f_mode == 0) || ((double)(mandel->zRe * 
+				(mandel->zIm + mandel->zIm) * (mandel->zIm * mandel->zIm)
+			 * mandel->zRe < 4 && mandel->f_mode == 1)) || ((double)
+			(mandel->zRe * mandel->zRe * mandel->zIm * mandel->zIm < 4) 
+			&& mandel->f_mode == 2)))
 	{
 		mandel->tempzRe = mandel->zRe;
 		mandel->zRe = (mandel->zRe * mandel->zRe) - (mandel->zIm * mandel->zIm) + mandel->Re;
@@ -34,7 +39,7 @@ void		iterating_drawing(t_win *mandel)
 	if (mandel->loopgo == MAX_ITER)
 		put_image(mandel, mandel->x_ptr, mandel->y_ptr, 0x000000);
 	else
-		put_image(mandel, mandel->x_ptr, mandel->y_ptr, (mandel->loopgo % 15) * 0xE70E0E);
+		put_image(mandel, mandel->x_ptr, mandel->y_ptr, (mandel->loopgo % 15) * 0xFFFFFFF);
 }
 
 void		mandelbrot(void)
@@ -59,6 +64,8 @@ void		mandelbrot(void)
 		iterating_drawing(mandel);
 	}
 	mlx_put_image_to_window(mandel->mlx, mandel->win, mandel->img, 0, 0);
+	mlx_key_hook(mandel->win, key_events, mandel);
+	mlx_hook(mandel->win, 17, 1L << 17, f_exit, mandel);
 	mlx_loop(mandel->mlx);
 }
 
@@ -73,10 +80,10 @@ t_win 		*init_mandel(t_win *mandel)
 	mandel->tempzRe = 0;
 	mandel->x_ptr = 0;
 	mandel->y_ptr = -1;
+	mandel->f_mode = 2;
 	return (mandel);
 }
 
-//(zx * (zy + zy) * (zy * zy) * zx < 4 && loopgo < MAX_ITER) - FLOWER MODE 1
 //(zx * zx * zy * zy <= 4 && loopgo < MAX_ITER) - FLOWER 
 //(zx * zx + zy * zy <= 4 && loopgo < MAX_ITER) - NORMAL MODE
 //(zy * (zy + zy * zx) + (zy + zy * zx) * zx) < 4 && loopgo < MAX_ITER) - FLOWER MODE 2

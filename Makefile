@@ -12,6 +12,7 @@ SRC_FILES = 	main.c \
 				validation.c \
 				errors.c \
 				init_fract.c \
+				events.c \
 				
 				
 
