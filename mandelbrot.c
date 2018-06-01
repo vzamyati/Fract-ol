@@ -16,8 +16,7 @@ void		put_image(t_win *window, int x, int y, int color)
 {
 	if (!(x > 0 && y > 0 && x < W_WIDTH &&  y < W_HEIGHT))
 		return ;
-	*(int *)(window->data +
-			(x + y * W_WIDTH) * window->bpp / 8) = color;
+	*(int *)(window->data + (x + y * W_WIDTH) * window->bpp / 8) = color;
 }
 
 void		iterating_drawing(t_win *mandel)
@@ -41,7 +40,7 @@ void		iterating_drawing(t_win *mandel)
 	if (mandel->loopgo == MAX_ITER)
 		put_image(mandel, mandel->x_ptr, mandel->y_ptr, 0x000000);
 	else
-		put_image(mandel, mandel->x_ptr, mandel->y_ptr, (mandel->loopgo % 15) * 0xFFFFFFF);
+		put_image(mandel, mandel->x_ptr, mandel->y_ptr, (mandel->loopgo % 15) * 0xF0D3D3);
 }
 
 void		mandelbrot(t_win *mandel)
@@ -63,17 +62,23 @@ void		mandelbrot(t_win *mandel)
 	}
 }
 
+void		get_factor(t_win *window)
+{
+	window->factor.re = ((window->max.re - window->min.re) / (double)(W_WIDTH - 1));
+	window->factor.im = ((window->max.im - window->min.im) / (double)(W_HEIGHT - 1));
+}
+
 t_win 		*init_mandel(t_win *mandel)
 {
 	mandel->max.re = 2;
 	mandel->max.im = 2.2;
 	mandel->min.re = -2.2;
 	mandel->min.im = -2.2;
-	mandel->factor.re = ((mandel->max.re - mandel->min.re) / (double)(W_WIDTH - 1));
-	mandel->factor.im = ((mandel->max.im - mandel->min.im) / (double)(W_HEIGHT - 1));
+	mandel->zoom = 1.0;
 	mandel->x_ptr = 0;
 	mandel->y_ptr = -1;
-	mandel->f_mode = 2;
+	mandel->f_mode = 0;
+	get_factor(mandel);
 	return (mandel);
 }
 

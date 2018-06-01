@@ -27,26 +27,25 @@ void	next_step(char *fractal)
 int		main(int ac, char **av)
 {
 	int i;
-	t_win	*mandel;
+	t_win	*window;
 
 	i = 0;
-	(void)av;
-	if (ac < 2)
-		ft_error(1);
-	mandel = init_win("Mandelbrot by vz");
-	mandel = init_mandel(mandel);
-	// while (++i < ac)
-	// {
-	// 	ft_strtolower(av[i]);
-	// 	if (validation(av[i]))
-	// 		next_step(av[i]);
-	// 	else
-	// 		ft_error(2);
-	// }
-	mandelbrot(mandel);
-	mlx_put_image_to_window(mandel->mlx, mandel->win, mandel->img, 0, 0);
-	mlx_key_hook(mandel->win, key_events, mandel);
-	mlx_hook(mandel->win, 17, 1L << 17, f_exit, mandel);
-	mlx_loop(mandel->mlx);
+	if (ac == 2)
+	{
+		ft_strtolower(av[1]);
+		if (validation(av[1]) == 0)
+			ft_error(1);
+		window = init_win("Fractol by vz");
+		window = init_mandel(window);
+		mandelbrot(window);
+		mlx_put_image_to_window(window->mlx, window->win, window->img, 0, 0);
+		mlx_hook(window->win, 2, 5, key_events, window);
+		mlx_hook(window->win, 4, 1L << 2,
+				mousebtn_press_hook, window);
+		mlx_hook(window->win, 17, 1L << 17, f_exit, window);
+		mlx_loop(window->mlx);
+	}
+	else
+		ft_error(2);
 	return (0);
 }

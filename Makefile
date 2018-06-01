@@ -12,6 +12,8 @@ SRC_FILES = 	main.c \
 				validation.c \
 				errors.c \
 				events.c \
+				zoom.c \
+				movement.c \
 
 BIN_FILES = $(SRC_FILES:.c=.o)
 
