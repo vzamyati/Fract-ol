@@ -21,23 +21,32 @@ void	fractals(void)
 void	next_step(char *fractal)
 {
 	if (!ft_strcmp(fractal, "mandelbrot"))
-		mandelbrot();
+		return ;//mandelbrot();
 }
 
 int		main(int ac, char **av)
 {
 	int i;
+	t_win	*mandel;
 
 	i = 0;
+	(void)av;
 	if (ac < 2)
 		ft_error(1);
-	while (++i < ac)
-	{
-		ft_strtolower(av[i]);
-		if (validation(av[i]))
-			next_step(av[i]);
-		else
-			ft_error(2);
-	}
+	mandel = init_win("Mandelbrot by vz");
+	mandel = init_mandel(mandel);
+	// while (++i < ac)
+	// {
+	// 	ft_strtolower(av[i]);
+	// 	if (validation(av[i]))
+	// 		next_step(av[i]);
+	// 	else
+	// 		ft_error(2);
+	// }
+	mandelbrot(mandel);
+	mlx_put_image_to_window(mandel->mlx, mandel->win, mandel->img, 0, 0);
+	mlx_key_hook(mandel->win, key_events, mandel);
+	mlx_hook(mandel->win, 17, 1L << 17, f_exit, mandel);
+	mlx_loop(mandel->mlx);
 	return (0);
 }

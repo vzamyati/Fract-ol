@@ -13,24 +13,8 @@
 
 #include "fractol.h"
 
-// t_color 	*init_color_palette(void)
-// {
-// 	t_color *palette;
-
-// 	if(!(palette = (t_color *)ft_memalloc(sizeof(t_color) * 15)))
-// 		ft_error(4);
-// 	return (palette);
-// }
-
-void		redraw_image(t_win *window, char *fractal)
+void		redraw_image(t_win *window)
 {
-	mlx_destroy_image(window->mlx, window->img);
-	if (!(window->img = mlx_new_window(window->mlx, W_WIDTH, W_HEIGHT, fractal)))
-		ft_error(3);
-	if (!(window->data = mlx_get_data_addr(window->img, &(window->bpp), 
-		&(window->size_line), &(window->endian))))
-		ft_error(3);
-	mlx_clear_window(window->mlx, window->img);
 	mlx_put_image_to_window(window->mlx, window->win, window->img, 0, 0);
 }
 
@@ -45,7 +29,6 @@ t_win		*init_win(char *fractal)
 		return (NULL);
 	}
 	window->mlx = mlx_init();
-	// window->color = init_color_palette();
 	window->win = mlx_new_window(window->mlx, W_WIDTH, W_HEIGHT, fractal);
 	window->img = mlx_new_image(window->mlx, W_WIDTH, W_HEIGHT);
 	window->data = mlx_get_data_addr(window->img, &(window->bpp), &(window->size_line), &(window->endian));

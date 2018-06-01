@@ -11,11 +11,7 @@ SRC_FILES = 	main.c \
 				window.c \
 				validation.c \
 				errors.c \
-				init_fract.c \
 				events.c \
-				
-				
-
 
 BIN_FILES = $(SRC_FILES:.c=.o)
 
