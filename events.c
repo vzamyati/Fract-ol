@@ -15,8 +15,11 @@
 int			f_exit(t_win *window)
 {
 	if (window != NULL)
+	{
 		mlx_destroy_window(window->mlx, window->win);
-	exit (1);
+		free(window);
+	}
+	exit (0);
 	return (0);
 }
 
@@ -28,15 +31,14 @@ int			key_events(int key, t_win *window)
 		f_move(window, 50, 0);
 	else if (key == 123)
 		f_move(window, -50, 0);
-	else if (key == 126)
-		f_move(window, 0, -50);
 	else if (key == 125)
+		f_move(window, 0, -50);
+	else if (key == 126)
 		f_move(window, 0, 50);
 	else if (key == 69)
-		f_zoom(window, 1.25, W_WIDTH / 2, W_HEIGHT / 2);
+		f_zoom(window, 1.13, W_WIDTH / 2, W_HEIGHT / 2);
 	else if (key == 78)
-		f_zoom(window, 0.75, W_WIDTH / 2, W_HEIGHT / 2);
-	mandelbrot(window);
+		f_zoom(window, 0.87, W_WIDTH / 2, W_HEIGHT / 2);
 	redraw_image(window);
 	return (0);
 }

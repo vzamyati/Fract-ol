@@ -12,9 +12,15 @@
 
 #include "fractol.h"
 
-int		validation(char *fractal)
+int		validation(char *fractal, t_win *window)
 {
-	if (!ft_strcmp(fractal, "mandelbrot"))
-		return (1);
-	return (0);
+	if (ft_strequ(fractal, "mandelbrot"))
+		window->fractal = 1;
+	else if (ft_strequ(fractal, "julia"))
+		window->fractal = 2;
+	else if (ft_strequ(fractal, "burningship"))
+		window->fractal = 3;
+	else
+		window->fractal = 0;
+	return (window->fractal);
 }

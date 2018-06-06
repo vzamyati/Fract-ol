@@ -12,37 +12,6 @@
 
 #include "fractol.h"
 
-void		put_image(t_win *window, int x, int y, int color)
-{
-	if (!(x > 0 && y > 0 && x < W_WIDTH &&  y < W_HEIGHT))
-		return ;
-	*(int *)(window->data + (x + y * W_WIDTH) * window->bpp / 8) = color;
-}
-
-void		iterating_drawing(t_win *mandel)
-{
-	double	tmp;
-
-	tmp = mandel->z.re;
-	while (mandel->loopgo < MAX_ITER && ((double)
-		(mandel->z.re * mandel->z.re + mandel->z.im * mandel->z.im < 4 
-			&& mandel->f_mode == 0) || ((double)(mandel->z.re * 
-				(mandel->z.im + mandel->z.im) * (mandel->z.im * mandel->z.im)
-			 * mandel->z.re < 4 && mandel->f_mode == 1)) || ((double)
-			(mandel->z.re * mandel->z.re * mandel->z.im * mandel->z.im < 4) 
-			&& mandel->f_mode == 2)))
-	{
-		tmp = mandel->z.re;
-		mandel->z.re = (mandel->z.re * mandel->z.re) - (mandel->z.im * mandel->z.im) + mandel->real.re;
-		mandel->z.im = (2 * mandel->z.im) * tmp + mandel->real.im;
-		mandel->loopgo++;
-	}
-	if (mandel->loopgo == MAX_ITER)
-		put_image(mandel, mandel->x_ptr, mandel->y_ptr, 0x000000);
-	else
-		put_image(mandel, mandel->x_ptr, mandel->y_ptr, (mandel->loopgo % 15) * 0xF0D3D3);
-}
-
 void		mandelbrot(t_win *mandel)
 {
 	while (mandel->x_ptr < W_WIDTH)
@@ -53,28 +22,21 @@ void		mandelbrot(t_win *mandel)
 			mandel->x_ptr++;
 			mandel->y_ptr = 0;
 		}
+		mandel->c.re = mandel->min.re + mandel->x_ptr * mandel->factor.re;
+		mandel->c.im = mandel->max.im - mandel->y_ptr * mandel->factor.im;
 		mandel->z.re = 0;
 		mandel->z.im = 0;
 		mandel->loopgo = 0;
-		mandel->real.re = (mandel->factor.re * mandel->x_ptr) - fabs(mandel->min.re);
-		mandel->real.im = (mandel->factor.im * mandel->y_ptr) - fabs(mandel->min.im);
 		iterating_drawing(mandel);
 	}
 }
 
-void		get_factor(t_win *window)
-{
-	window->factor.re = ((window->max.re - window->min.re) / (double)(W_WIDTH - 1));
-	window->factor.im = ((window->max.im - window->min.im) / (double)(W_HEIGHT - 1));
-}
-
 t_win 		*init_mandel(t_win *mandel)
 {
-	mandel->max.re = 2;
-	mandel->max.im = 2.2;
+	mandel->max.re = 2.0;
 	mandel->min.re = -2.2;
 	mandel->min.im = -2.2;
-	mandel->zoom = 1.0;
+	mandel->max.im = mandel->min.im + (mandel->max.re - mandel->min.re) * W_HEIGHT / W_WIDTH;
 	mandel->x_ptr = 0;
 	mandel->y_ptr = -1;
 	mandel->f_mode = 0;

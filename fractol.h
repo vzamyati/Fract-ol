@@ -20,11 +20,11 @@
 # include <stdlib.h>
 # include <pthread.h>
 
-# define MAX_ITER		100
+# define MAX_ITER		51
 
 # define PI 			3.14159265359
-# define W_HEIGHT		900
-# define W_WIDTH 		900
+# define W_HEIGHT		1000
+# define W_WIDTH 		1000
 
 #define MOUSE_WHEEL_UP 5
 #define MOUSE_WHEEL_DOWN 4
@@ -41,48 +41,56 @@ typedef struct 			s_win
 	void				*mlx;
 	void				*win;
 	void				*img;
-	char				*fractal;
+	int					fractal;
 	char				*data;
 	int 				bpp;
 	int 				size_line;
 	int 				endian;
-	int 				flower_m;
-	int 				palette;
 	t_complex			max;
 	t_complex			min;
 	t_complex			factor;
 	t_complex 			z;
-	t_complex 			real;
+	t_complex 			c;
+	int 				palette;
 	double				zoom;
-	double				oldre;
 	int 				loopgo;
 	int 				x_ptr;
 	int 				y_ptr;
 	int 				f_mode;
+	int 				iter;
 }						t_win;
 
 
-int			key_events(int key, t_win *window);
-int			mousebtn_press_hook(int button, int x, int y, t_win *window);
-int			validation(char *fractal);
-int			f_exit(t_win *window);
+void 		fractol(t_win *window);
+void		fractals(void);
+int			validation(char *fractal, t_win *window);
+void		ft_error(int error_code);
+
 void		f_move(t_win *window, int x, int y);
 void		f_move2(t_win *window, int x, int y);
-void		redraw_image(t_win *window);
-void		ft_error(int error_code);
-void		fractals(void);
-void		next_step(char *fractal);
-void		init_fract(t_win *window);
-void		mandelbrot(t_win *window);
+int			mouse_move(int x, int y, t_win *widow);
+void		f_zoom(t_win *window, double nzoom, int x, int y);
+int			mousebtn_press_hook(int button, int x, int y, t_win *window);
+
+int			key_events(int key, t_win *window);
+int			f_exit(t_win *window);
+
+int 		expose(t_win *window);
+void		iterating_drawing_ship(t_win *bship);
 void		iterating_drawing(t_win *mandel);
+void		redraw_image(t_win *window);
 void		put_image(t_win *window, int x, int y, int color);
+
 void		var_back(t_win *window);
 void		var_recount2(t_win *window, t_complex d);
-void		get_factor(t_win *window);
-void		f_zoom(t_win *window, double nzoom, int x, int y);
-
 t_complex	var_recount(t_win *window, int x, int y);
+void		get_factor(t_win *window);
+
+void		mandelbrot(t_win *window);
+void		bship(t_win *bship);
+void		julia(t_win *julia);
 t_win 		*init_mandel(t_win *mandel);
-t_win		*init_win(char *fractal);
+t_win 		*init_bship(t_win *bship);
+t_win 		*init_julia(t_win *julia);
 
 #endif

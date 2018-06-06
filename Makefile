@@ -8,12 +8,15 @@ LIB = ./libft/libft.a
 
 SRC_FILES = 	main.c \
 				mandelbrot.c \
-				window.c \
 				validation.c \
 				errors.c \
 				events.c \
 				zoom.c \
 				movement.c \
+				image.c \
+				vars.c \
+				julia.c \
+				bship.c 
 
 BIN_FILES = $(SRC_FILES:.c=.o)
 
