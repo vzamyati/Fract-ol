@@ -22,8 +22,6 @@ void		julia(t_win *julia)
 			julia->x_ptr++;
 			julia->y_ptr = 0;
 		}
-		julia->c.re = 0.4;
-		julia->c.im = 0.6;
 		julia->z.re = julia->min.re + julia->x_ptr * julia->factor.re;
 		julia->z.im = julia->max.im - julia->y_ptr * julia->factor.im;
 		julia->loopgo = 0;
@@ -33,10 +31,10 @@ void		julia(t_win *julia)
 
 t_win 		*init_julia(t_win *julia)
 {
-	julia->max.re = 2.0;
-	julia->min.re = -2.2;
-	julia->min.im = -2.2;
-	julia->max.im = julia->min.im + (julia->max.re - julia->min.re) * W_HEIGHT / W_WIDTH;
+	julia->max.re = 2.25;
+	julia->min.re = -2.25;
+	julia->min.im = -2;
+	julia->max.im = 2;
 	julia->x_ptr = 0;
 	julia->y_ptr = -1;
 	julia->f_mode = 0;

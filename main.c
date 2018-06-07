@@ -17,6 +17,7 @@ void	fractals(void)
 	ft_putstr("Fractals that are available: \n");
 	ft_putstr(" - mandelbrot \n");
 	ft_putstr(" - julia \n");
+	ft_putstr(" - burningship \n");
 }
 
 void 	fractol(t_win *window)

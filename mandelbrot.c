@@ -33,13 +33,14 @@ void		mandelbrot(t_win *mandel)
 
 t_win 		*init_mandel(t_win *mandel)
 {
-	mandel->max.re = 2.0;
-	mandel->min.re = -2.2;
-	mandel->min.im = -2.2;
-	mandel->max.im = mandel->min.im + (mandel->max.re - mandel->min.re) * W_HEIGHT / W_WIDTH;
+	mandel->max.re = 0.5;
+	mandel->min.re = -2.0;
+	mandel->min.im = 1.25;
+	mandel->max.im = -1.25;
 	mandel->x_ptr = 0;
 	mandel->y_ptr = -1;
 	mandel->f_mode = 0;
+	mandel->zoom = 0.0035;
 	get_factor(mandel);
 	return (mandel);
 }

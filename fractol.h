@@ -22,11 +22,10 @@
 
 # define MAX_ITER		51
 
-# define PI 			3.14159265359
 # define W_HEIGHT		1000
 # define W_WIDTH 		1000
 
-#define MOUSE_WHEEL_UP 5
+#define MOUSE_WHEEL_UP	5
 #define MOUSE_WHEEL_DOWN 4
 
 

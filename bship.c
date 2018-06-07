@@ -16,12 +16,14 @@ void		iterating_drawing_ship(t_win *bship)
 {
 	double tmp;
 
+	bship->z.re = 0;
+	bship->z.im = 0;
 	while (bship->loopgo < MAX_ITER && ((double)
 		(bship->z.re * bship->z.re + bship->z.im * bship->z.im < 4)))
 	{
-		tmp = fabs(bship->z.re * bship->z.re - bship->z.im * bship->z.im + bship->c.re);
-		bship->z.im = fabs(bship->z.re * bship->z.im) * 2.0 + bship->c.im;
-		bship->z.re = tmp;
+		tmp = (bship->z.re * bship->z.re) - (bship->z.im * bship->z.im);
+		bship->z.im = 2 * fabs(bship->z.re * bship->z.im) + bship->c.im;
+		bship->z.re = tmp + bship->c.re;
 		bship->loopgo++;
 	}
 	if (bship->loopgo == MAX_ITER)
@@ -40,21 +42,19 @@ void		bship(t_win *bship)
 			bship->x_ptr++;
 			bship->y_ptr = 0;
 		}
-		bship->z.re = 0;
-		bship->z.im = 0;
 		bship->loopgo = 0;
-		bship->c.re = bship->min.re - bship->x_ptr * bship->factor.re;
-		bship->c.im = bship->max.im + bship->y_ptr * bship->factor.im;
+		bship->c.re = (bship->min.re + bship->x_ptr * bship->factor.im);
+		bship->c.im = (bship->max.im - bship->y_ptr * bship->factor.re) * -1;
 		iterating_drawing_ship(bship);
 	}
 }
 
 t_win 		*init_bship(t_win *bship)
 {
-	bship->max.re = 2.0;
-	bship->min.re = -2.2;
-	bship->min.im = -2.2;
-	bship->max.im = bship->min.im + (bship->max.re - bship->min.re) * W_HEIGHT / W_WIDTH;
+	bship->max.re = 2.25;
+	bship->min.re = -2.25;
+	bship->min.im = -2;
+	bship->max.im = 2;
 	bship->x_ptr = 0;
 	bship->y_ptr = -1;
 	bship->f_mode = 0;
