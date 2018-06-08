@@ -45,7 +45,7 @@ t_complex		var_recount(t_win *window, int x, int y)
 	t_complex	v;
 
 	v.re = (double)x * window->factor.re + window->min.re;
-	v.im = (double)y * window->factor.im + window->min.im;
+	v.im = ((double)y * window->factor.im + window->min.im) * -1;
 	return(v); 
 }
 

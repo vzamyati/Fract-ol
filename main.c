@@ -25,10 +25,7 @@ void 	fractol(t_win *window)
 	window->img = mlx_new_image(window->mlx, W_WIDTH, W_HEIGHT);
 	window->data = mlx_get_data_addr(window->img, &(window->bpp), &(window->size_line), &(window->endian));
 	if (window->fractal == 1)
-	{
-		window = init_mandel(window);
-		mandelbrot(window);
-	}
+		mandelbrot(init_mandel(window));
 	if (window->fractal == 2)
 	{
 		window = init_julia(window);

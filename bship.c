@@ -58,6 +58,7 @@ t_win 		*init_bship(t_win *bship)
 	bship->x_ptr = 0;
 	bship->y_ptr = -1;
 	bship->f_mode = 0;
+	bship->iter = MAX_ITER;
 	get_factor(bship);
 	return (bship);
 }

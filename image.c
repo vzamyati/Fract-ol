@@ -30,7 +30,7 @@ void		iterating_drawing(t_win *win)
 	double	tmp;
 
 	tmp = win->z.re;
-	while (win->loopgo < MAX_ITER && ((double)
+	while (win->loopgo < win->iter && ((double)
 		(win->z.re * win->z.re + win->z.im * win->z.im < 4)))
 	{
 		tmp = win->z.re;

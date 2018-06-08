@@ -14,7 +14,7 @@
 
 int			mouse_move(int x, int y, t_win *window)
 {
-	if (window->fractal == 2)
+	if (window->fractal == 2 && window->lock == 0)
 	{
 		window->c.re = x * ((window->max.re - window->min.re) / W_HEIGHT) + window->min.re;
 		window->c.im = y * ((window->max.im - window->min.im) / W_HEIGHT) + window->min.im;

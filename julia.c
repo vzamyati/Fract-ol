@@ -12,6 +12,14 @@
 
 #include "fractol.h"
 
+void		lock_julia(t_win *window)
+{
+	if (window->lock == 0)
+		window->lock = 1;
+	else if (window->lock == 1)
+		window->lock = 0;
+}
+
 void		julia(t_win *julia)
 {
 	while (julia->x_ptr < W_WIDTH)
@@ -38,6 +46,8 @@ t_win 		*init_julia(t_win *julia)
 	julia->x_ptr = 0;
 	julia->y_ptr = -1;
 	julia->f_mode = 0;
+	julia->lock = 0;
+	julia->iter = MAX_ITER;
 	get_factor(julia);
 	return (julia);
 }
