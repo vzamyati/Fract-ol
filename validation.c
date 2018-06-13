@@ -14,12 +14,14 @@
 
 int		validation(char *fractal, t_win *window)
 {
-	if (ft_strequ(fractal, "mandelbrot"))
+	if (ft_strequ(fractal, "mandelbrot") || ft_strequ(fractal, "M"))
 		window->fractal = 1;
-	else if (ft_strequ(fractal, "julia"))
+	else if (ft_strequ(fractal, "julia") || ft_strequ(fractal, "J"))
 		window->fractal = 2;
-	else if (ft_strequ(fractal, "burningship"))
+	else if (ft_strequ(fractal, "burningship") || ft_strequ(fractal, "B"))
 		window->fractal = 3;
+	else if (ft_strequ(fractal, "spider") || ft_strequ(fractal, "S"))
+		window->fractal = 4;
 	else
 		window->fractal = 0;
 	return (window->fractal);

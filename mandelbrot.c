@@ -42,6 +42,7 @@ t_win 		*init_mandel(t_win *mandel)
 	mandel->f_mode = 0;
 	mandel->zoom = 0.0035;
 	mandel->iter = MAX_ITER;
+	mandel->palette = 1;
 	get_factor(mandel);
 	return (mandel);
 }

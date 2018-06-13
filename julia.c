@@ -14,9 +14,9 @@
 
 void		lock_julia(t_win *window)
 {
-	if (window->lock == 0)
+	if (window->fractal == 2 && window->lock == 0)
 		window->lock = 1;
-	else if (window->lock == 1)
+	else if (window->fractal == 2 && window->lock == 1)
 		window->lock = 0;
 }
 
@@ -39,15 +39,19 @@ void		julia(t_win *julia)
 
 t_win 		*init_julia(t_win *julia)
 {
-	julia->max.re = 2.25;
-	julia->min.re = -2.25;
-	julia->min.im = -2;
-	julia->max.im = 2;
+	if (julia->f_julia != 1)
+	{
+		julia->max.re = 2.25;
+		julia->min.re = -2.25;
+		julia->min.im = -2;
+		julia->max.im = 2;
+		julia->lock = 0;
+	}
 	julia->x_ptr = 0;
 	julia->y_ptr = -1;
 	julia->f_mode = 0;
-	julia->lock = 0;
 	julia->iter = MAX_ITER;
+	julia->palette = 1;
 	get_factor(julia);
 	return (julia);
 }

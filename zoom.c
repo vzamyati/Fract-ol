@@ -20,6 +20,7 @@ void			f_zoom(t_win *window, double nzoom, int x, int y)
 	d = var_recount(window, x, y);
 	var_recount2(window, d);
 	var_back(window);
+	mouse_move(x, y, window);
 }
 
 int				mousebtn_press_hook(int button, int x, int y, t_win *window)

@@ -51,6 +51,7 @@ typedef struct 			s_win
 	t_complex 			z;
 	t_complex 			c;
 	int 				palette;
+	int 				color;
 	double				zoom;
 	int 				loopgo;
 	int 				x_ptr;
@@ -58,10 +59,9 @@ typedef struct 			s_win
 	int 				f_mode;
 	int 				iter;
 	int 				lock;
+	int 				f_julia;
 }						t_win;
 
-
-void 		fractol(t_win *window);
 void		fractals(void);
 int			validation(char *fractal, t_win *window);
 void		ft_error(int error_code);
@@ -93,5 +93,11 @@ void		lock_julia(t_win *window);
 t_win 		*init_mandel(t_win *mandel);
 t_win 		*init_bship(t_win *bship);
 t_win 		*init_julia(t_win *julia);
+t_complex	var_recount_zoom(t_win *window, int x, int y);
+int 		choose_palette(int loopgo, t_win *window);
+
+int			palette1(int i);
+int			palette2(int i);
+void		change_palette(t_win *window);
 
 #endif

@@ -26,10 +26,11 @@ void		iterating_drawing_ship(t_win *bship)
 		bship->z.re = tmp + bship->c.re;
 		bship->loopgo++;
 	}
-	if (bship->loopgo == MAX_ITER)
-		put_image(bship, bship->x_ptr, bship->y_ptr, 0x000000);
-	else
-		put_image(bship, bship->x_ptr, bship->y_ptr, (bship->loopgo % 15) * 0xF0D3D3);
+	if (bship->loopgo < bship->iter && bship->loopgo > 0)
+	{
+		bship->color = choose_palette(bship->loopgo % 16, bship);
+		put_image(bship, bship->x_ptr, bship->y_ptr, bship->color);
+	}
 }
 
 void		bship(t_win *bship)
@@ -59,6 +60,7 @@ t_win 		*init_bship(t_win *bship)
 	bship->y_ptr = -1;
 	bship->f_mode = 0;
 	bship->iter = MAX_ITER;
+	bship->palette = 1;
 	get_factor(bship);
 	return (bship);
 }

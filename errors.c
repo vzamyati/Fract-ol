@@ -16,7 +16,7 @@ void	ft_error(int error_code)
 {
 	if (error_code == 1)
 	{
-		ft_putstr_fd("Usage:\n./fractol mandelbrot\n", 2);
+		ft_putstr_fd("Usage:\n./fractol [fractal's name]\n", 2);
 		fractals();
 	}
 	if (error_code == 2)

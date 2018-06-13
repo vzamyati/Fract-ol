@@ -15,28 +15,25 @@
 void	fractals(void)
 {
 	ft_putstr("Fractals that are available: \n");
-	ft_putstr(" - mandelbrot \n");
-	ft_putstr(" - julia \n");
-	ft_putstr(" - burningship \n");
+	ft_putstr(" - mandelbrot || M\n");
+	ft_putstr(" - julia || J\n");
+	ft_putstr(" - burningship || B\n");
 }
 
-void 	fractol(t_win *window)
+int 	expose(t_win *window)
 {
 	window->img = mlx_new_image(window->mlx, W_WIDTH, W_HEIGHT);
-	window->data = mlx_get_data_addr(window->img, &(window->bpp), &(window->size_line), &(window->endian));
+	window->data = mlx_get_data_addr(window->img, &(window->bpp), 
+		&(window->size_line), &(window->endian));
 	if (window->fractal == 1)
 		mandelbrot(init_mandel(window));
 	if (window->fractal == 2)
-	{
-		window = init_julia(window);
-		julia(window);
-	}
+		julia(init_julia(window));
 	if (window->fractal == 3)
-	{
-		window = init_bship(window);
-		bship(window);
-	}
+		bship(init_bship(window));
 	mlx_put_image_to_window(window->mlx, window->win, window->img, 0, 0);
+	mlx_string_put(window->mlx, window->win, 10, 5, 0xFFFFFF, ft_itoa(window->iter));
+	return (0);
 }
 
 int		main(int ac, char **av)

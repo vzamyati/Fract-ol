@@ -2,7 +2,7 @@ NAME = fractol
 
 FLAGS = -Wall -Wextra -Werror -I fractol.h
 
-MLX = -lmlx -framework AppKit -framework OpenGl
+MLX = -lmlx -framework AppKit -framework OpenGl -O3
 
 LIB = ./libft/libft.a
 
@@ -16,7 +16,8 @@ SRC_FILES = 	main.c \
 				image.c \
 				vars.c \
 				julia.c \
-				bship.c 
+				bship.c \
+				palettes.c
 
 BIN_FILES = $(SRC_FILES:.c=.o)
 

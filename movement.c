@@ -14,10 +14,22 @@
 
 int			mouse_move(int x, int y, t_win *window)
 {
-	if (window->fractal == 2 && window->lock == 0)
+	static t_complex new;
+
+	if (window->lock == 0 && window->fractal == 2)
 	{
-		window->c.re = x * ((window->max.re - window->min.re) / W_HEIGHT) + window->min.re;
-		window->c.im = y * ((window->max.im - window->min.im) / W_HEIGHT) + window->min.im;
+		window->f_julia = 1;
+		new.re = (x - W_WIDTH / 2) * (1.0 / (W_WIDTH / 2.0));
+		new.im = (y - W_HEIGHT / 2) * (1.0 / (W_HEIGHT / 2.0));
+		window->c.re = new.re;
+		window->c.im = new.im;
+		mlx_destroy_image(window->mlx, window->img);
+		expose(window);
+	}
+	else if (window->lock == 1 && window->fractal == 2)
+	{
+		window->c.re = new.re;
+		window->c.im = new.im;
 		mlx_destroy_image(window->mlx, window->img);
 		expose(window);
 	}
