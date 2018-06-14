@@ -17,7 +17,13 @@ SRC_FILES = 	main.c \
 				vars.c \
 				julia.c \
 				bship.c \
-				palettes.c
+				palettes.c \
+				cube.c \
+				brain.c \
+				info.c \
+				additional.c \
+				changes.c \
+				hirosima.c
 
 BIN_FILES = $(SRC_FILES:.c=.o)
 

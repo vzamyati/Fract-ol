@@ -14,9 +14,9 @@
 
 void			var_recount2(t_win *window, t_complex d)
 {
-	double 		in;
-	t_complex 	min;
-	t_complex 	max;
+	double		in;
+	t_complex	min;
+	t_complex	max;
 
 	in = 1.0 / window->zoom;
 	min.re = (d.re + ((window->min.re - d.re) * in));
@@ -34,7 +34,7 @@ void			var_recount2(t_win *window, t_complex d)
 	window->c.re = max.re - min.re;
 }
 
-void		var_back(t_win *window)
+void			var_back(t_win *window)
 {
 	window->x_ptr = 0;
 	window->y_ptr = -1;
@@ -46,11 +46,13 @@ t_complex		var_recount(t_win *window, int x, int y)
 
 	v.re = (double)x * window->factor.re + window->min.re;
 	v.im = (((double)y * window->factor.im + window->min.im) * -1);
-	return (v); 
+	return (v);
 }
 
-void		get_factor(t_win *window)
+void			get_factor(t_win *window)
 {
-	window->factor.re = ((window->max.re - window->min.re) / (double)(W_WIDTH - 1));
-	window->factor.im = ((window->max.im - window->min.im) / (double)(W_HEIGHT - 1));
+	window->factor.re = ((window->max.re - window->min.re)
+		/ (double)(W_WIDTH - 1));
+	window->factor.im = ((window->max.im - window->min.im)
+		/ (double)(W_HEIGHT - 1));
 }

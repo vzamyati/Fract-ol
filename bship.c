@@ -14,12 +14,13 @@
 
 void		iterating_drawing_ship(t_win *bship)
 {
-	double tmp;
+	double	tmp;
 
 	bship->z.re = 0;
 	bship->z.im = 0;
-	while (bship->loopgo < MAX_ITER && ((double)
-		(bship->z.re * bship->z.re + bship->z.im * bship->z.im < 4)))
+	while (bship->loopgo < MAX_ITER && ((bship->f_mode == 0) ? ((double)
+		(bship->z.re * bship->z.re + bship->z.im * bship->z.im < 4)) :
+		((double)(bship->z.re * bship->z.re * bship->z.im * bship->z.im < 4))))
 	{
 		tmp = (bship->z.re * bship->z.re) - (bship->z.im * bship->z.im);
 		bship->z.im = 2 * fabs(bship->z.re * bship->z.im) + bship->c.im;
@@ -50,17 +51,17 @@ void		bship(t_win *bship)
 	}
 }
 
-t_win 		*init_bship(t_win *bship)
+t_win		*init_bship(t_win *bship)
 {
-	bship->max.re = 2.25;
-	bship->min.re = -2.25;
-	bship->min.im = -2;
-	bship->max.im = 2;
+	if (bship->first != 1)
+	{
+		bship->max.re = 2.25;
+		bship->min.re = -2.25;
+		bship->min.im = -2;
+		bship->max.im = 2;
+	}
 	bship->x_ptr = 0;
 	bship->y_ptr = -1;
-	bship->f_mode = 0;
-	bship->iter = MAX_ITER;
-	bship->palette = 1;
 	get_factor(bship);
 	return (bship);
 }

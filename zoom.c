@@ -14,7 +14,7 @@
 
 void			f_zoom(t_win *window, double nzoom, int x, int y)
 {
-	t_complex 	d;
+	t_complex	d;
 
 	window->zoom = nzoom;
 	d = var_recount(window, x, y);
@@ -25,11 +25,11 @@ void			f_zoom(t_win *window, double nzoom, int x, int y)
 
 int				mousebtn_press_hook(int button, int x, int y, t_win *window)
 {
-	if (button == MOUSE_WHEEL_DOWN || button == MOUSE_WHEEL_UP)
+	if (button == MWHEEL_UP || button == MWHEEL_DOWN)
 	{
-		if (button == MOUSE_WHEEL_DOWN)
+		if (button == MWHEEL_DOWN)
 			f_zoom(window, 0.87, x, y);
-		else if (button == MOUSE_WHEEL_UP)
+		else if (button == MWHEEL_UP)
 			f_zoom(window, 1.13, x, y);
 		redraw_image(window);
 	}

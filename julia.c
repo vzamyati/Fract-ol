@@ -37,9 +37,9 @@ void		julia(t_win *julia)
 	}
 }
 
-t_win 		*init_julia(t_win *julia)
+t_win		*init_julia(t_win *julia)
 {
-	if (julia->f_julia != 1)
+	if (julia->first != 1)
 	{
 		julia->max.re = 2.25;
 		julia->min.re = -2.25;
@@ -49,9 +49,6 @@ t_win 		*init_julia(t_win *julia)
 	}
 	julia->x_ptr = 0;
 	julia->y_ptr = -1;
-	julia->f_mode = 0;
-	julia->iter = MAX_ITER;
-	julia->palette = 1;
 	get_factor(julia);
 	return (julia);
 }

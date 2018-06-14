@@ -31,24 +31,18 @@ void		mandelbrot(t_win *mandel)
 	}
 }
 
-t_win 		*init_mandel(t_win *mandel)
+t_win		*init_mandel(t_win *mandel)
 {
-	mandel->max.re = 0.5;
-	mandel->min.re = -2.0;
-	mandel->min.im = 1.25;
-	mandel->max.im = -1.25;
+	if (mandel->first != 1)
+	{
+		mandel->max.re = 0.5;
+		mandel->min.re = -2.0;
+		mandel->min.im = 1.25;
+		mandel->max.im = -1.25;
+	}
 	mandel->x_ptr = 0;
 	mandel->y_ptr = -1;
-	mandel->f_mode = 0;
 	mandel->zoom = 0.0035;
-	mandel->iter = MAX_ITER;
-	mandel->palette = 1;
 	get_factor(mandel);
 	return (mandel);
 }
-
-//(zx * zx * zy * zy <= 4 && loopgo < MAX_ITER) - FLOWER 
-//(zx * zx + zy * zy <= 4 && loopgo < MAX_ITER) - NORMAL MODE
-//(zy * (zy + zy * zx) + (zy + zy * zx) * zx) < 4 && loopgo < MAX_ITER) - FLOWER MODE 2
-
-

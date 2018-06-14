@@ -21,7 +21,7 @@ void	ft_error(int error_code)
 	}
 	if (error_code == 2)
 	{
-		ft_putstr_fd("Sorry, but you're doing smthing that is not available :(\n", 2);
+		ft_putstr_fd("Sorry, that is not available :(\n", 2);
 		fractals();
 	}
 	if (error_code == 3)

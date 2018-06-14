@@ -12,34 +12,6 @@
 
 #include "fractol.h"
 
-void		reset_fractal(t_win *window)
-{
-	ft_bzero(window->data, W_HEIGHT * W_WIDTH * 4);
-	if (window->fractal == 1)
-		window = init_mandel(window);
-	else if (window->fractal == 2)
-	{
-		window->f_julia = 0;
-		window = init_julia(window);
-	}
-	else if (window->fractal == 3)
-		window = init_bship(window);
-	mlx_put_image_to_window(window->mlx, window->win, window->img, 0, 0);
-}
-
-void		change_fract(int key, t_win *window)
-{
-	if (key == 18)
-		window->fractal = 1;
-	else if (key == 19)
-		window->fractal = 2;
-	else if (key == 20)
-		window->fractal = 3;
-	else
-		return ;
-	reset_fractal(window);
-}
-
 int			f_exit(t_win *window)
 {
 	if (window != NULL)
@@ -47,28 +19,31 @@ int			f_exit(t_win *window)
 		mlx_destroy_window(window->mlx, window->win);
 		free(window);
 	}
-	exit (0);
+	exit(0);
 	return (0);
 }
 
 int			key_events(int key, t_win *window)
 {
-	if (key == 53 || key == 12)
+	if (key == ESC || key == Q)
 		f_exit(window);
-	else if (key == 124)
-		f_move(window, 50, 0);
-	else if (key == 123)
-		f_move(window, -50, 0);
-	else if (key == 125)
-		f_move(window, 0, -50);
-	else if (key == 126)
-		f_move(window, 0, 50);
-	else if (key == 15)
+	else if (key == AR_RIGHT || key == AR_LEFT)
+		(key == AR_RIGHT) ? f_move(window, 50, 0) : f_move(window, -50, 0);
+	else if (key == AR_UP || key == AR_DOWN)
+		(key == AR_UP) ? f_move(window, 0, -50) : f_move(window, 0, 50);
+	if (key == R)
 		reset_fractal(window);
-	else if (window->fractal == 2 && key == 37)
+	else if (window->fractal == 2 && key == L)
 		lock_julia(window);
-	else if (key == 18 || key == 19 || key == 20)
+	else if (key == NUM_1 || key == NUM_2 || key == NUM_3
+		|| key == NUM_4 || key == NUM_5 || key == NUM_6)
 		change_fract(key, window);
+	else if (key == ENTER)
+		change_palette(window);
+	else if (key == F)
+		flower_mode(window);
+	else if (key == LESS || key == MORE)
+		change_iter(key, window);
 	else
 		return (0);
 	redraw_image(window);

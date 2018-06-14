@@ -12,18 +12,10 @@
 
 #include "fractol.h"
 
-void	fractals(void)
-{
-	ft_putstr("Fractals that are available: \n");
-	ft_putstr(" - mandelbrot || M\n");
-	ft_putstr(" - julia || J\n");
-	ft_putstr(" - burningship || B\n");
-}
-
-int 	expose(t_win *window)
+int			expose(t_win *window)
 {
 	window->img = mlx_new_image(window->mlx, W_WIDTH, W_HEIGHT);
-	window->data = mlx_get_data_addr(window->img, &(window->bpp), 
+	window->data = mlx_get_data_addr(window->img, &(window->bpp),
 		&(window->size_line), &(window->endian));
 	if (window->fractal == 1)
 		mandelbrot(init_mandel(window));
@@ -31,12 +23,18 @@ int 	expose(t_win *window)
 		julia(init_julia(window));
 	if (window->fractal == 3)
 		bship(init_bship(window));
+	if (window->fractal == 4)
+		cube(init_cube(window));
+	if (window->fractal == 5)
+		brain(init_brain(window));
+	if (window->fractal == 6)
+		hiro(init_hiro(window));
 	mlx_put_image_to_window(window->mlx, window->win, window->img, 0, 0);
-	mlx_string_put(window->mlx, window->win, 10, 5, 0xFFFFFF, ft_itoa(window->iter));
+	info(window);
 	return (0);
 }
 
-int		main(int ac, char **av)
+int			main(int ac, char **av)
 {
 	t_win	*window;
 
@@ -46,7 +44,9 @@ int		main(int ac, char **av)
 		if (validation(av[1], window) == 0)
 			ft_error(1);
 		window->mlx = mlx_init();
-		window->win = mlx_new_window(window->mlx, W_WIDTH, W_HEIGHT, "fractol by vz");
+		window->win = mlx_new_window(window->mlx, W_WIDTH, W_HEIGHT,
+			"fractol by vz");
+		data_init(window);
 		mlx_expose_hook(window->win, expose, window);
 		mlx_hook(window->win, 6, 1L << 6, mouse_move, window);
 		mlx_hook(window->win, 2, 5, key_events, window);
